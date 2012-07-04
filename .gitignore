@@ -4,3 +4,7 @@ priv
 *.o
 *.beam
 *.plt
+*.app
+erl_crash.dump
+rel/m8ball
+*~
