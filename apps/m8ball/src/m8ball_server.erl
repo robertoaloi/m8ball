@@ -3,6 +3,7 @@
 -export([start_link/0, stop/0, ask/1]).
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
          code_change/3, terminate/2]).
+-include("m8ball.hrl").
 
 %%%%%%%%%%%%%%%%%
 %%% INTERFACE %%%
@@ -26,6 +27,7 @@ init([]) ->
 
 handle_call(question, _From, State) ->
     {ok, Answers} = application:get_env(m8ball, answers),
+    folsom_metrics:notify({?COUNTER, {inc, 1}}),
     Answer = element(random:uniform(tuple_size(Answers)), Answers),
     {reply, Answer, State};
 handle_call(stop, _From, State) ->
