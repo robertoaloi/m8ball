@@ -8,7 +8,10 @@ deps:
 compile:
 	./rebar compile
 
-rel: deps compile relclean rel_a rel_b rel_c
+rel: deps compile relclean
+	./rebar generate overlay_vars=`PWD`/rel/files/sample-vars-standalone.config
+
+rel_all: deps compile relclean rel_a rel_b rel_c
 
 rel_a:
 	./rebar generate overlay_vars=`PWD`/rel/files/sample-vars-a.config
@@ -31,6 +34,9 @@ distclean: clean relclean
 relclean:
 	rm -rf rel/m8ball rel/m8ball-a rel/m8ball-b rel/m8ball-c
 
+console:
+	rel/m8ball/bin/m8ball console
+
 console_a:
 	rel/m8ball-a/bin/m8ball console
 
@@ -40,7 +46,10 @@ console_b:
 console_c:
 	rel/m8ball-c/bin/m8ball console
 
-start: start_a start_b start_c
+start:
+	rel/m8ball/bin/m8ball start
+
+start_all: start_a start_b start_c
 
 start_a:
 	rel/m8ball-a/bin/m8ball start
@@ -51,7 +60,10 @@ start_b:
 start_c:
 	rel/m8ball-c/bin/m8ball start
 
-ping: ping_a ping_b ping_c
+ping:
+	-rel/m8ball/bin/m8ball ping
+
+ping_all: ping_a ping_b ping_c
 
 ping_a:
 	-rel/m8ball-a/bin/m8ball ping
@@ -62,6 +74,9 @@ ping_b:
 ping_c:
 	-rel/m8ball-c/bin/m8ball ping
 
+attach:
+	rel/m8ball/bin/m8ball attach
+
 attach_a:
 	rel/m8ball-a/bin/m8ball attach
 
@@ -71,7 +86,10 @@ attach_b:
 attach_c:
 	rel/m8ball-c/bin/m8ball attach
 
-stop: stop_a stop_b stop_c
+stop:
+	-rel/m8ball/bin/m8ball stop
+
+stop_all: stop_a stop_b stop_c
 
 stop_a:
 	-rel/m8ball-a/bin/m8ball stop
