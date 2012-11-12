@@ -9,7 +9,7 @@ compile:
 	./rebar compile
 
 rel: deps compile relclean
-	./rebar generate overlay_vars=`PWD`/rel/files/sample-vars-standalone.config
+	./rebar generate
 
 rel_all: deps compile relclean rel_a rel_b rel_c
 
